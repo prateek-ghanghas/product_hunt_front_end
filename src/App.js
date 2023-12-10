@@ -145,12 +145,12 @@ function App() {
   Your Unfllowing is scheduled — <strong>Check back later</strong>
     </Alert>
    </Snackbar>
-   
-   <CssBaseline/>
-   <Grid pl={5} container bgcolor = '#4d4d4d' sx={{height : '44px',alignItems : 'center',width : '1000px',borderRadius : '10px'}} ml={32} mt={2}>
+   <Box width = '100%'>
+   <Grid pl={5} container bgcolor = '#4d4d4d' sx={{height : '44px',alignItems : 'center',width : '1000px',borderRadius : '10px'}} ml={32} mt={2} mr={32}>
     <Grid item color= '#5E5353' mr={99} >PH mate</Grid>
     <Grid item><Button sx={{backgroundColor : '#333333',height : '28px', color : 'white', borderRadius : '10px','&:hover' :{backgroundColor : '#8E969D'}}}>Sign Up</Button></Grid>
    </Grid>
+   </Box>
 
 
 
@@ -161,7 +161,7 @@ function App() {
     <TextField  sx={{width : '400px'}} id="standard-basic" label="name" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}/>
     </Grid>
     <Grid item>
-    <TextField sx={{width : '400px'}} id="standard-basic" label="name" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}/>
+    <TextField sx={{width : '400px'}} id="standard-basic" label="session token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}/>
     </Grid>
     <Grid item mt={4}>
     <Stack direction={'row'}>
