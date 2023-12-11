@@ -18,7 +18,7 @@ function Unfollow() {
   
   
     const skeletons = <Grid item lg={3}>
-      <Card sx={{paddingBottom : '12px',backgroundColor : '#666666',borderRadius : '12px',width : '285px'}}>
+      <Card sx={{paddingBottom : '12px',backgroundColor : '#bebeb6',borderRadius : '12px',width : '285px'}}>
       <CardHeader   
         avatar={
           
