@@ -170,7 +170,7 @@ function Unfollow() {
      {skeletons}{skeletons}{skeletons}{skeletons}{skeletons}{skeletons}{skeletons}{skeletons}
     </Grid> :
      userNonfollowbacks.map((info) => {
-      const card = <Grid item lg={3} ><Card sx={{paddingBottom : '12px',backgroundColor : '#666666',borderRadius : '12px'}}>
+      const card = <Grid item lg={3} ><Card sx={{paddingBottom : '12px',backgroundColor : '#bebeb6',borderRadius : '12px'}}>
       <CardHeader   
       avatar={
         
