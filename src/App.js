@@ -147,7 +147,7 @@ function App() {
    </Snackbar>
    <Box width = '100%'>
    <Grid pl={5} container bgcolor = '#4d4d4d' sx={{height : '44px',alignItems : 'center',width : '1000px',borderRadius : '10px'}} ml={32} mt={2} mr={32}>
-    <Grid item color= 'black' mr={99}>PH mate</Grid>
+    <Grid item color= '#5E5353' mr={99}><Typography color={'black'}>PH mate</Typography></Grid>
     <Grid item><Button sx={{backgroundColor : '#333333',height : '28px', color : 'white', borderRadius : '10px','&:hover' :{backgroundColor : '#8E969D'}}}>Sign Up</Button></Grid>
    </Grid>
    </Box>
