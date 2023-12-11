@@ -201,7 +201,7 @@ function App() {
     <Stack direction = {'row'} spacing={3} pl={2}>
     <Typography>{info.followersCount + ' Followers'}</Typography> 
     {buttonId.includes(info.id) ? <Button sx={{bgcolor : '#00e600',height : '28px',paddingTop : '8px',marginLeft : '20px'}} variant='contained'>Done</Button> :
-    <Button sx={{bgcolor : '#4d4d4d',height : '28px',paddingTop : '8px'}} variant='contained' value = {info.id} onClick={unfollow_single_user}>Unfollow</Button>}
+    <Button sx={{bgcolor : '#4d4d4d',height : '28px',paddingTop : '8px',  ':hover':{backgroundColor : '#8E969D'}}} variant='contained' value = {info.id} onClick={unfollow_single_user}>Unfollow</Button>}
     </Stack>
    
     </Card>
