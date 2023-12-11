@@ -95,24 +95,19 @@ function Comment_api() {
   Your Commenting on Products is Scheduled — <strong>Check back later</strong>
     </Alert>
    </Snackbar>
-    <CssBaseline/>
-    <Box mt = {5} display={'flex'} alignItems={'center'} justifyContent={'center'}><Typography variant='h3'>Comment Api</Typography></Box>
-    <Box width='100%' height='500px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
+    <Box width='100%' height='380px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
     
-    <Grid spacing={1} direction={'column'} container bgcolor='#4d4d4d' sx={{height : 'auto', width: '487px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '42px'}}>
+    <Grid spacing={1} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
       <Grid item >
-    <TextField  sx={{width : '400px'}} id="standard-basic" label="username" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}/>
+    <TextField  sx={{width : '600px'}} id="standard-basic" label="username" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}/>
     </Grid>
     <Grid item>
-    <TextField sx={{width : '400px'}} id="standard-basic" label="session" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}/>
+    <TextField sx={{width : '600px'}} id="standard-basic" label="session" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}/>
     </Grid>
     <Grid item>
-    <Tooltip title = {<Typography>If you left this input empty, the default comment will be considered</Typography>}>  <TextField sx={{width : '400px'}} id="standard-basic" label="comment" helperText = 'Deafult : Congrats team {Product Name} on your launch.' variant="standard" onChange={(e) => {setUserdata({...userdata,comment : e.target.value})}}></TextField></Tooltip>
-    </Grid>
-    <Grid item mt={4}>
-    <Stack direction={'row'} height={40} spacing={3}>
-      <Button onClick = {schedule_comments} variant = 'contained'  sx={{color : 'white', backgroundColor : '#333333', ':hover':{backgroundColor : '#8E969D'}}}>Schedule Comments</Button>
-      <TextField
+     <Stack direction={'row'} spacing={4}>  
+    <Tooltip title = {<Typography>If you left this input empty, the default comment will be considered</Typography>}>  <TextField sx={{width : '420px'}} id="standard-basic" label="Deafult : Congrats team {Product Name} on your launch." variant="standard" onChange={(e) => {setUserdata({...userdata,comment : e.target.value})}}></TextField></Tooltip>
+    <TextField
           id="outlined-select-currency"
           select
           label="Select"
@@ -128,6 +123,13 @@ function Comment_api() {
             </MenuItem>
           ))}
         </TextField>
+    </Stack> 
+    </Grid>
+    <Grid item mt={2}>
+    <Stack direction={'row'} height={40} spacing={3}>
+      
+      
+        <Button onClick = {schedule_comments} variant = 'contained'  sx={{color : 'white', backgroundColor : '#333333', ':hover':{backgroundColor : '#8E969D'}, marginTop : '-20px'}}>Schedule Comments</Button>
     
     </Stack>
     </Grid>
