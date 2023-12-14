@@ -1,7 +1,8 @@
 import React from 'react'
-import { Card, Container, CssBaseline, Grid, Paper, Stack, TextField,Avatar,CardHeader,CardContent,Typography,Alert,AlertTitle, Snackbar, CircularProgress, Skeleton, ToggleButtonGroup, ToggleButton} from '@mui/material';
+import {Card, Container, CssBaseline, Grid, Paper, Stack, TextField,Avatar,CardHeader,CardContent,Typography,Alert,AlertTitle, Snackbar, CircularProgress, Skeleton, ToggleButtonGroup, ToggleButton, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText} from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import Box from '@mui/system/Box';
@@ -15,6 +16,7 @@ function Unfollow() {
     const [buttonId,setButtonId] = useState([])
     const [schedule,setSchedule] = useState(false)
     const[scheduleProgress,setSechduleProgress] = useState(false)
+    const [open, setOpen] = useState(false)
   
   
     const skeletons = <Grid item lg={3}>
@@ -134,6 +136,10 @@ function Unfollow() {
       setSchedule(false)
       }
     }
+
+    const close_dialog = () => {
+      setOpen(false)
+    }
   
 
   return (
@@ -148,10 +154,36 @@ function Unfollow() {
     
     <Grid spacing={1} direction={'column'} container bgcolor='#bebeb6' sx={{height : '215px', width: '487px' ,borderRadius : '10px', alignItems : 'center'}}>
       <Grid item >
-    <TextField  sx={{width : '400px'}} id="standard-basic" label="name" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}/>
+    <TextField  sx={{width : '400px'}} id="standard-basic" label="name" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}
+    InputProps={ { 
+      endAdornment : (<IconButton><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
+    }}
+    >
+    </TextField>
     </Grid>
     <Grid item>
-    <TextField sx={{width : '400px'}} id="standard-basic" label="session token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}/>
+    <TextField sx={{width : '400px'}} id="standard-basic" label="session token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
+    InputProps={ { 
+      endAdornment : (<IconButton onClick={() => {setOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
+    }}
+    >
+      </TextField>
+      <Dialog scroll='body' open = {open} maxWidth = {true} onClose={close_dialog}>
+        <DialogTitle>Follow these simple steps to get your session token</DialogTitle>
+        <DialogContent>1. After logging in to Product Hunt, right click on the page and go to inspect</DialogContent>
+        <DialogContent><img width = '800px' src='./inspecttool.png'/></DialogContent>
+        <DialogContent>2. DevTools will open, then go to Application tab</DialogContent>
+        <DialogContent><img width = '800px' src='./devtool_applicationtab.png'/></DialogContent>
+        <DialogContent>3. Then under the storage section, select cookies</DialogContent>
+        <DialogContent><img width = '800px' src='./cookies.png'/></DialogContent>
+        <DialogContent>4. Then select the option under cookies, same as in the image</DialogContent>
+        <DialogContent><img width = '800px' src='./url.png'/></DialogContent>
+        <DialogContent>5. Then under the Name column, select the 'producthunt_session_production' field</DialogContent>
+        <DialogContent><img width = '800px' src='./productsession.png'/></DialogContent>
+        <DialogContent>6. That's it, below the table you will find your cookie value. Copy it and paste it in the session token field.</DialogContent>
+        <DialogContent><img width = '800px' src='./token.png'/></DialogContent>
+        
+      </Dialog>
     </Grid>
     <Grid item mt={4}>
     <Stack direction={'row'}>
