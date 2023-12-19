@@ -140,7 +140,34 @@ function Unfollow() {
     const close_dialog = () => {
       setOpen(false)
     }
-  
+  const follow_single_user = (e) => {
+    const userinfo = {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id : e.target.value,
+        sessionToken : userdata.session
+        }),
+      }
+   
+
+    fetch("https://b6kwk32mt2.execute-api.eu-north-1.amazonaws.com/followUser",userinfo)
+   .then((Response) => Response.json())
+   .then((response) => {
+    if(response.response === "true"){
+      setButtonId((prevState) => {
+        let newArray = [...prevState]
+        let index = newArray.indexOf(e.target.value)
+        console.log(index)
+        newArray.splice(index,1)
+        return [...newArray]
+      })
+    }
+    })
+     }
 
   return (
     <>
@@ -222,7 +249,7 @@ function Unfollow() {
     
     <Stack direction = {'row'} spacing={3} pl={2}>
     <Typography>{info.followersCount + ' Followers'}</Typography> 
-    {buttonId.includes(info.id) ? <Button sx={{bgcolor : '#00e600',height : '28px',paddingTop : '8px',marginLeft : '20px'}} variant='contained'>Done</Button> :
+    {buttonId.includes(info.id) ? <Button value = {info.id} onClick={follow_single_user} sx={{bgcolor : '#00e600',height : '28px',paddingTop : '8px',marginLeft : '20px'}} variant='contained'>Follow</Button> :
     <Button sx={{bgcolor : '#4d4d4d',height : '28px',paddingTop : '8px',  ':hover':{backgroundColor : '#8E969D'}}} variant='contained' value = {info.id} onClick={unfollow_single_user}>Unfollow</Button>}
     </Stack>
    
