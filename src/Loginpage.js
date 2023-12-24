@@ -1,23 +1,26 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Button ,Box} from '@mui/material'
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Button ,Box, Typography} from '@mui/material'
+import React, { useEffect } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 function Loginpage() {
-    const {logout,loginWithPopup,isAuthenticated} = useAuth0()
+    const {loginWithPopup,isAuthenticated} = useAuth0()
     const navigate = useNavigate()
 
-    const handleclick = () => {
+    const handleclick = () =>  {
         loginWithPopup();
         
 
     }
-    isAuthenticated ? navigate('/') : navigate('/login')
+    useEffect(() => {
+     isAuthenticated ? navigate('/') : navigate('/login')
+    },[isAuthenticated])
 
   return (
     <>
-    <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column',alignContent:'center'}}>
-        <Button onClick={handleclick}>Log in</Button>
+    <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column',alignContent:'center',height:'100vh',justifyContent:'space-evenly'}}>
+        <Typography>Please Log in to use</Typography>
+        <Button onClick={handleclick} variant='contained'>Log in</Button>
     </Box>
     </>
   )

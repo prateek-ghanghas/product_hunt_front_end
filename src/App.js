@@ -5,13 +5,17 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Homepage from './Homepage';
 import Loginpage from './Loginpage';
+import PrivateRoutes from './PrivateRoutes';
 
 
 function App() {
   return(
  <>
    <Routes>
-    <Route path='/' element={<Homepage></Homepage>}></Route>
+    <Route element={<PrivateRoutes></PrivateRoutes>}>
+    <Route exact path='/' element={<Homepage></Homepage>}></Route>
+    </Route>
+    
     <Route path='/login' element = {<Loginpage></Loginpage>}/>
    </Routes>
 
