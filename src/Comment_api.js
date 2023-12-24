@@ -1,5 +1,6 @@
-import { Box, CssBaseline, Typography,Grid,TextField,Stack,Button ,MenuItem, Tooltip,Snackbar,AlertTitle,Alert} from '@mui/material'
+import { Box, CssBaseline, Typography,Grid,TextField,Stack,Button ,MenuItem, Tooltip,Snackbar,AlertTitle,Alert,Dialog,DialogContent,DialogTitle,IconButton} from '@mui/material'
 import React, { useState } from 'react'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const days = [
     { 
@@ -53,6 +54,8 @@ function Comment_api() {
     const [userdata,setUserdata] = useState({username : '', session : '', comment : ''})
     const [noOfDays,SetNoOfDays] = useState('')
     const [commentApiResponse,setCommentApiResponse] = useState(false)
+    const [sessionOpen, setsessionOpen] = useState(false)
+    const [usernameOpen, setUsernameOpen] = useState(false)
 
     const schedule_comments = () => {
      const userinfo = {
@@ -86,6 +89,12 @@ function Comment_api() {
         setCommentApiResponse(false)
         }
       }
+      const close_session_dialog = () => {
+        setsessionOpen(false)
+      }
+      const close_username_dialog = () => {
+        setUsernameOpen(false)
+      }
 
   return (
     <>
@@ -99,10 +108,44 @@ function Comment_api() {
     
     <Grid spacing={1} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
       <Grid item >
-    <TextField  sx={{width : '600px'}} id="standard-basic" label="username" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}/>
+    <TextField  sx={{width : '600px'}} id="standard-basic" label="Username" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}
+    InputProps={ { 
+      endAdornment : (<IconButton onClick={() => {setUsernameOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
+    }}
+    >
+      </TextField>
+      <Dialog scroll='body' open = {usernameOpen} maxWidth = {true} onClose={close_username_dialog}>
+        <DialogTitle>Follow these simple steps to get your Username</DialogTitle>
+        <DialogContent>1. Go to your Product Hunt Homepage. Hover over your profile icon and select settings.</DialogContent>
+        <DialogContent><img width = '800px' src='./profileHover.png'/></DialogContent>
+        <DialogContent>2. Select My Details tab , there you will find your username field.</DialogContent>
+        <DialogContent><img width = '800px' src='./myDetails.png'/></DialogContent>
+        </Dialog>
+
     </Grid>
     <Grid item>
-    <TextField sx={{width : '600px'}} id="standard-basic" label="session" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}/>
+    <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
+    InputProps={ { 
+      endAdornment : (<IconButton onClick={() => {setsessionOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
+    }}
+    >
+      </TextField>
+      <Dialog scroll='body' open = {sessionOpen} maxWidth = {true} onClose={close_session_dialog}>
+        <DialogTitle>Follow these simple steps to get your session token</DialogTitle>
+        <DialogContent>1. After logging in to Product Hunt, right click on the page and go to inspect</DialogContent>
+        <DialogContent><img width = '800px' src='./inspecttool.png'/></DialogContent>
+        <DialogContent>2. DevTools will open, then go to Application tab</DialogContent>
+        <DialogContent><img width = '800px' src='./devtool_applicationtab.png'/></DialogContent>
+        <DialogContent>3. Then under the storage section, select cookies</DialogContent>
+        <DialogContent><img width = '800px' src='./cookies.png'/></DialogContent>
+        <DialogContent>4. Then select the option under cookies, same as in the image</DialogContent>
+        <DialogContent><img width = '800px' src='./url.png'/></DialogContent>
+        <DialogContent>5. Then under the Name column, select the 'producthunt_session_production' field</DialogContent>
+        <DialogContent><img width = '800px' src='./productsession.png'/></DialogContent>
+        <DialogContent>6. That's it, below the table you will find your cookie value. Copy it and paste it in the session token field.</DialogContent>
+        <DialogContent><img width = '800px' src='./token.png'/></DialogContent>
+        
+      </Dialog>
     </Grid>
     <Grid item>
      <Stack direction={'row'} spacing={4}>  

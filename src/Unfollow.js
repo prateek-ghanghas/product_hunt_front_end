@@ -16,7 +16,8 @@ function Unfollow() {
     const [buttonId,setButtonId] = useState([])
     const [schedule,setSchedule] = useState(false)
     const[scheduleProgress,setSechduleProgress] = useState(false)
-    const [open, setOpen] = useState(false)
+    const [sessionOpen, setsessionOpen] = useState(false)
+    const [usernameOpen, setUsernameOpen] = useState(false)
   
   
     const skeletons = <Grid item lg={3}>
@@ -137,8 +138,11 @@ function Unfollow() {
       }
     }
 
-    const close_dialog = () => {
-      setOpen(false)
+    const close_session_dialog = () => {
+      setsessionOpen(false)
+    }
+    const close_username_dialog = () => {
+      setUsernameOpen(false)
     }
   const follow_single_user = (e) => {
     const userinfo = {
@@ -181,21 +185,29 @@ function Unfollow() {
     
     <Grid spacing={1} direction={'column'} container bgcolor='#bebeb6' sx={{height : '215px', width: '487px' ,borderRadius : '10px', alignItems : 'center'}}>
       <Grid item >
-    <TextField  sx={{width : '400px'}} id="standard-basic" label="name" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}
+    <TextField  sx={{width : '400px'}} id="standard-basic" label="Username" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}
     InputProps={ { 
-      endAdornment : (<IconButton><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
+      endAdornment : (<IconButton onClick={() => {setUsernameOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
     }}
     >
     </TextField>
+    <Dialog scroll='body' open = {usernameOpen} maxWidth = {true} onClose={close_username_dialog}>
+        <DialogTitle>Follow these simple steps to get your Username</DialogTitle>
+        <DialogContent>1. Go to your Product Hunt Homepage. Hover over your profile icon and select settings.</DialogContent>
+        <DialogContent><img width = '800px' src='./profileHover.png'/></DialogContent>
+        <DialogContent>2. Select My Details tab , there you will find your username field.</DialogContent>
+        <DialogContent><img width = '800px' src='./myDetails.png'/></DialogContent>
+        </Dialog>
+
     </Grid>
     <Grid item>
-    <TextField sx={{width : '400px'}} id="standard-basic" label="session token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
+    <TextField sx={{width : '400px'}} id="standard-basic" label="Session Token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
     InputProps={ { 
-      endAdornment : (<IconButton onClick={() => {setOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
+      endAdornment : (<IconButton onClick={() => {setsessionOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
     }}
     >
       </TextField>
-      <Dialog scroll='body' open = {open} maxWidth = {true} onClose={close_dialog}>
+      <Dialog scroll='body' open = {sessionOpen} maxWidth = {true} onClose={close_session_dialog}>
         <DialogTitle>Follow these simple steps to get your session token</DialogTitle>
         <DialogContent>1. After logging in to Product Hunt, right click on the page and go to inspect</DialogContent>
         <DialogContent><img width = '800px' src='./inspecttool.png'/></DialogContent>
