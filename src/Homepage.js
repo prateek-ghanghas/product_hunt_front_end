@@ -50,7 +50,10 @@ function Homepage() {
     console.log(user)
   
   
-    
+    const handleLogout = () => {
+      logout()
+      navigate("/login")
+    }
     
     return (
      <>
@@ -64,7 +67,7 @@ function Homepage() {
       <Grid item>
         {isAuthenticated?
         <Stack display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
-        <Button onClick={() => {logout(); navigate('/login')}}>Log out</Button>
+        <Button onClick={handleLogout}>Log out</Button>
       <Avatar src={user.picture} sx={{height:'28px',width:'28px'}}></Avatar>
       </Stack>:null}
       </Grid>
