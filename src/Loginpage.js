@@ -9,12 +9,13 @@ function Loginpage() {
 
     const handleclick = () =>  {
         loginWithPopup();
+        navigate('/login')
         
 
     }
-    useEffect(() => {
+    /*useEffect(() => {
      isAuthenticated ? navigate('/') : navigate('/login')
-    },[isAuthenticated])
+    },[isAuthenticated])*/
 
   return (
     <>
