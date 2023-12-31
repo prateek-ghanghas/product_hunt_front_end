@@ -12,10 +12,9 @@ function Loginpage() {
         
 
     }
-    /*useEffect(() => {
+    useEffect(() => {
      isAuthenticated ? navigate('/') : navigate('/login')
-    },[isAuthenticated])*/
-    isAuthenticated ? navigate('/') : null
+    },[isAuthenticated])
 
   return (
     <>
