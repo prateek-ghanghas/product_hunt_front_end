@@ -10,10 +10,12 @@ import { useEffect, useState } from 'react';
 import Comment_api from './Comment_api';
 import Unfollow from './Unfollow';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from 'react-router-dom';
 
 
 function Homepage() {
     const [alignment, setAlignment] = useState('AUTO-COMMENT')
+    const navigate = useNavigate()
   
   
     const {loginWithRedirect,user,isAuthenticated,loginWithPopup,logout} = useAuth0()
@@ -62,7 +64,7 @@ function Homepage() {
       <Grid item>
         {isAuthenticated?
         <Stack display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
-        <Button onClick={() => logout()}>Log out</Button>
+        <Button onClick={() => {logout(); navigate('/login')}}>Log out</Button>
       <Avatar src={user.picture} sx={{height:'28px',width:'28px'}}></Avatar>
       </Stack>:null}
       </Grid>
