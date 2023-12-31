@@ -9,7 +9,7 @@ function Loginpage() {
 
     const handleclick = () =>  {
         loginWithPopup();
-        navigate('/login')
+        navigate('/')
         
 
     }
