@@ -56,8 +56,14 @@ function Comment_api() {
     const [commentApiResponse,setCommentApiResponse] = useState(false)
     const [sessionOpen, setsessionOpen] = useState(false)
     const [usernameOpen, setUsernameOpen] = useState(false)
+    localStorage.setItem("myvalue","this value")
+    
 
     const schedule_comments = () => {
+      localStorage.setItem("session",userdata.session)
+      
+        const userSession = localStorage.getItem("session")
+      
      const userinfo = {
         method: "post",
         headers: {
@@ -66,7 +72,7 @@ function Comment_api() {
         },
         body: JSON.stringify({
           name : userdata.username,
-          sessionToken : userdata.session,
+          sessionToken : userSession,
           no_of_days : noOfDays,
           comment : userdata.comment,
           }),
@@ -123,13 +129,15 @@ function Comment_api() {
         </Dialog>
 
     </Grid>
-    <Grid item>
+    {localStorage.getItem("session") ? null : 
+       <Grid item>
+      
     <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
     InputProps={ { 
       endAdornment : (<IconButton onClick={() => {setsessionOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
     }}
     >
-      </TextField>
+      </TextField> 
       <Dialog scroll='body' open = {sessionOpen} maxWidth = {true} onClose={close_session_dialog}>
         <DialogTitle>Follow these simple steps to get your session token</DialogTitle>
         <DialogContent>1. After logging in to Product Hunt, right click on the page and go to inspect</DialogContent>
@@ -146,7 +154,7 @@ function Comment_api() {
         <DialogContent><img width = '800px' src='./token.png'/></DialogContent>
         
       </Dialog>
-    </Grid>
+    </Grid>}
     <Grid item>
      <Stack direction={'row'} spacing={4}>  
     <Tooltip title = {<Typography>If you left this input empty, the default comment will be considered</Typography>}>  <TextField sx={{width : '420px'}} id="standard-basic" label="Deafult : Congrats team {Product Name} on your launch." variant="standard" onChange={(e) => {setUserdata({...userdata,comment : e.target.value})}}></TextField></Tooltip>
