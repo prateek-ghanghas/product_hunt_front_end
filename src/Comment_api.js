@@ -56,6 +56,7 @@ function Comment_api() {
     const [commentApiResponse,setCommentApiResponse] = useState(false)
     const [sessionOpen, setsessionOpen] = useState(false)
     const [usernameOpen, setUsernameOpen] = useState(false)
+    const [sessionValidity,setSessionValidity] = useState(false)
     localStorage.setItem("myvalue","this value")
     
 
@@ -83,16 +84,29 @@ function Comment_api() {
             if (response.result === 'true'){
                 setCommentApiResponse(true)
             }
+            else if(response.result === 'access_denied'){
+               setSessionValidity(true)
+               localStorage.removeItem("session")
+            }
         })
     }
 
-    const handleClose = (reason) => {
+    const handleCloseCommentApi = (reason) => {
         if (reason == 'clickaway'){
           return
         }
         else{
     
         setCommentApiResponse(false)
+        }
+      }
+      const handleCloseSessionValidity = (reason) => {
+        if (reason == 'clickaway'){
+          return
+        }
+        else{
+    
+        setSessionValidity(false)
         }
       }
       const close_session_dialog = () => {
@@ -104,15 +118,21 @@ function Comment_api() {
 
   return (
     <>
-    <Snackbar open={commentApiResponse}  autoHideDuration={5000} onClose={handleClose} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
-    <Alert severity='success' onClose={handleClose} sx={{width : '500px'}}>
+    <Snackbar open={commentApiResponse}  autoHideDuration={5000} onClose={handleCloseCommentApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
+    <Alert severity='success' onClose={handleCloseCommentApi} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
   Your Commenting on Products is Scheduled — <strong>Check back later</strong>
     </Alert>
    </Snackbar>
+   <Snackbar open={sessionValidity}  autoHideDuration={5000} onClose={handleCloseSessionValidity} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
+    <Alert severity='error' onClose={handleCloseSessionValidity} sx={{width : '500px'}}>
+    <AlertTitle>Expired</AlertTitle>
+  Seems like your session token is expired — <strong>Enter it again!</strong>
+    </Alert>
+   </Snackbar>
     <Box width='100%' height='380px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
     
-    <Grid spacing={1} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
+    <Grid spacing={2} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
       <Grid item >
     <TextField  sx={{width : '600px'}} id="standard-basic" label="Username" variant="standard" value = {userdata.username} onChange={(e) => {setUserdata({...userdata,username : e.target.value})}}
     InputProps={ { 
@@ -129,7 +149,8 @@ function Comment_api() {
         </Dialog>
 
     </Grid>
-    {localStorage.getItem("session") ? null : 
+    {localStorage.getItem("session") ? <Grid item>
+      <Typography>You don't have to enter session token again!</Typography></Grid>: 
        <Grid item>
       
     <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
