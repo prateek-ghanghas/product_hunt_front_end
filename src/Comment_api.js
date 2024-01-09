@@ -51,7 +51,7 @@ const days = [
   ];
 
 function Comment_api() {
-    const [userdata,setUserdata] = useState({username : '', session : localStorage.getItem("session") ? localStorage.getItem("session") :"Empty" , comment : ''})
+    const [userdata,setUserdata] = useState({username : '', session : localStorage.getItem("session") ? localStorage.getItem("session") :"Enter your session token" , comment : ''})
     const [noOfDays,SetNoOfDays] = useState('')
     const [commentApiResponse,setCommentApiResponse] = useState(false)
     const [sessionOpen, setsessionOpen] = useState(false)
