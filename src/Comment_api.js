@@ -59,7 +59,11 @@ function Comment_api() {
     const [sessionValidity,setSessionValidity] = useState(false)
     localStorage.setItem("myvalue","this value")
     
-
+    const defaultSession = () => {
+      if(localStorage.getItem("session")){
+        setUserdata({...userdata,session:localStorage.getItem("sssion")})
+      }
+    }
     const schedule_comments = () => {
       localStorage.setItem("session",userdata.session)
       
@@ -84,9 +88,10 @@ function Comment_api() {
             if (response.result === 'true'){
                 setCommentApiResponse(true)
             }
-            else if(response.result === 'access_denied'){
-               setSessionValidity(true)
+            else if(response.result == "access_denied"){
+               
                localStorage.removeItem("session")
+               setSessionValidity(true)
             }
         })
     }
@@ -118,6 +123,7 @@ function Comment_api() {
 
   return (
     <>
+    {defaultSession()}
     <Snackbar open={commentApiResponse}  autoHideDuration={5000} onClose={handleCloseCommentApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseCommentApi} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
@@ -127,7 +133,7 @@ function Comment_api() {
    <Snackbar open={sessionValidity}  autoHideDuration={5000} onClose={handleCloseSessionValidity} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='error' onClose={handleCloseSessionValidity} sx={{width : '500px'}}>
     <AlertTitle>Expired</AlertTitle>
-  Seems like your session token is expired — <strong>Enter it again!</strong>
+  Seems like something wrong with your session token or it is expired — <strong>Enter it again!</strong>
     </Alert>
    </Snackbar>
     <Box width='100%' height='380px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
@@ -149,8 +155,7 @@ function Comment_api() {
         </Dialog>
 
     </Grid>
-    {localStorage.getItem("session") ? <Grid item>
-      <Typography>You don't have to enter session token again!</Typography></Grid>: 
+    
        <Grid item>
       
     <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
@@ -175,7 +180,7 @@ function Comment_api() {
         <DialogContent><img width = '800px' src='./token.png'/></DialogContent>
         
       </Dialog>
-    </Grid>}
+    </Grid>
     <Grid item>
      <Stack direction={'row'} spacing={4}>  
     <Tooltip title = {<Typography>If you left this input empty, the default comment will be considered</Typography>}>  <TextField sx={{width : '420px'}} id="standard-basic" label="Deafult : Congrats team {Product Name} on your launch." variant="standard" onChange={(e) => {setUserdata({...userdata,comment : e.target.value})}}></TextField></Tooltip>
