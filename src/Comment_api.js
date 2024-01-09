@@ -51,7 +51,7 @@ const days = [
   ];
 
 function Comment_api() {
-    const [userdata,setUserdata] = useState({username : '', session : '', comment : ''})
+    const [userdata,setUserdata] = useState({username : '', session : localStorage.getItem("session") ? localStorage.getItem("session") :"Empty" , comment : ''})
     const [noOfDays,SetNoOfDays] = useState('')
     const [commentApiResponse,setCommentApiResponse] = useState(false)
     const [sessionOpen, setsessionOpen] = useState(false)
@@ -152,7 +152,7 @@ function Comment_api() {
     
        <Grid item>
       
-    <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" defaultValue={localStorage.getItem("session")? localStorage.getItem("session"): ""} value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
+    <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard"  value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
     InputProps={ { 
       endAdornment : (<IconButton onClick={() => {setsessionOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
     }}
