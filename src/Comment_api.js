@@ -57,13 +57,7 @@ function Comment_api() {
     const [sessionOpen, setsessionOpen] = useState(false)
     const [usernameOpen, setUsernameOpen] = useState(false)
     const [sessionValidity,setSessionValidity] = useState(false)
-    localStorage.setItem("myvalue","this value")
     
-    const defaultSession = () => {
-      if(localStorage.getItem("session")){
-        setUserdata({...userdata,session:localStorage.getItem("sssion")})
-      }
-    }
     const schedule_comments = () => {
       localStorage.setItem("session",userdata.session)
       
@@ -123,7 +117,7 @@ function Comment_api() {
 
   return (
     <>
-    {defaultSession()}
+    
     <Snackbar open={commentApiResponse}  autoHideDuration={5000} onClose={handleCloseCommentApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseCommentApi} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
@@ -158,7 +152,7 @@ function Comment_api() {
     
        <Grid item>
       
-    <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
+    <TextField sx={{width : '600px'}} id="standard-basic" label="Session Token" variant="standard" defaultValue={localStorage.getItem("session")? localStorage.getItem("session"): ""} value={userdata.session} onChange={(e) => {setUserdata({...userdata,session : e.target.value})}}
     InputProps={ { 
       endAdornment : (<IconButton onClick={() => {setsessionOpen(true)}}><InfoOutlinedIcon></InfoOutlinedIcon></IconButton>)
     }}
