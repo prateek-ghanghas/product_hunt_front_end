@@ -61,6 +61,7 @@ function Comment_api() {
     
     const schedule_comments = () => {
       localStorage.setItem("session",userdata.session)
+      localStorage.setItem("PHusername",userdata.username)
       
         const userSession = localStorage.getItem("session")
       
