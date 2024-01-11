@@ -1,6 +1,7 @@
 import { Box, CssBaseline, Typography,Grid,TextField,Stack,Button ,MenuItem, Tooltip,Snackbar,AlertTitle,Alert,Dialog,DialogContent,DialogTitle,IconButton} from '@mui/material'
 import React, { useState } from 'react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PastActivity from './PastActivity';
 
 const days = [
     { 
@@ -208,6 +209,7 @@ function Comment_api() {
     </Grid>
     
    </Box>
+   <PastActivity></PastActivity>
 
     </>
   )
