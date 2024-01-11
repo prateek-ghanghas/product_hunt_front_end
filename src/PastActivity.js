@@ -24,10 +24,11 @@ function PastActivity() {
 console.log(pastActivity)
   return (
     <>
+    {localStorage.getItem("PHusername")?
     <Typography>{pastActivity.map((dic) => {
         
         return <p>{dic.name}</p>
-    })}</Typography>
+    })}</Typography>:null}
     </>
   )
 }
