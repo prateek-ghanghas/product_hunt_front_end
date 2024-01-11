@@ -24,7 +24,7 @@ function PastActivity() {
 console.log(pastActivity)
   return (
     <>
-    {localStorage.getItem("PHusername")?
+    {pastActivity ?
     <Typography>{pastActivity.map((dic) => {
         
         return <p>{dic.name}</p>
