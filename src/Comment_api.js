@@ -210,7 +210,7 @@ function Comment_api() {
     </Grid>
     
    </Box>
-   <PastActivity></PastActivity>
+   
 
     </>
   )

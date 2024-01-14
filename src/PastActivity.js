@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+/*import { Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 function PastActivity() {
@@ -33,4 +33,4 @@ console.log(pastActivity)
   )
 }
 
-export default PastActivity
+export default PastActivity*/
