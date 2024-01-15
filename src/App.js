@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Homepage from './Homepage';
 import Loginpage from './Loginpage';
 import PrivateRoutes from './PrivateRoutes';
+import Activity from './Activity';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     </Route>
     
     <Route path='/login' element = {<Loginpage></Loginpage>}/>
+    <Route path='/activity' element = {<Activity></Activity>}/>
    </Routes>
 
  </>

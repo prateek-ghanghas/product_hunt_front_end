@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Container, CssBaseline, Grid, Paper, Stack, TextField,Avatar,CardHeader,CardContent,Typography,Alert,AlertTitle, Snackbar, CircularProgress, Skeleton, ToggleButtonGroup, ToggleButton} from '@mui/material';
+import { Card, Container, CssBaseline, Grid, Paper, Stack, TextField,Avatar,CardHeader,CardContent,Typography,Alert,AlertTitle, Snackbar, CircularProgress, Skeleton, ToggleButtonGroup, ToggleButton, Chip} from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -11,6 +11,7 @@ import Comment_api from './Comment_api';
 import Unfollow from './Unfollow';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 
 function Homepage() {
@@ -20,7 +21,9 @@ function Homepage() {
   
     const {loginWithRedirect,user,isAuthenticated,loginWithPopup,logout} = useAuth0()
   
-    
+    const handleActivity = () => {
+      navigate('/Activity')
+    }
     useEffect(() => {
     if(isAuthenticated){ 
       const object = {
@@ -87,6 +90,7 @@ function Homepage() {
     <ToggleButton value="UNFOLLOW">UNFOLLOW</ToggleButton>
       
       </ToggleButtonGroup>
+      <Chip onClick = {handleActivity} icon={<PublishedWithChangesIcon/>} sx = {{marginLeft : '20px',height : '40px'}} label="Activity" color='secondary' variant="outlined"></Chip>
       </Box>
   
       {alignment === 'UNFOLLOW' ? <Unfollow></Unfollow> : null}
