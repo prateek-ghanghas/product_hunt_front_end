@@ -1,5 +1,28 @@
-import { TableContainer,Table, TableCell,TableRow,TableHead,TableBody, Paper, Typography} from '@mui/material'
+import styled from '@emotion/styled';
+import { TableContainer,Table, TableCell,TableRow,TableHead,TableBody, Paper, Typography, tableCellClasses} from '@mui/material'
 import React, { useEffect, useState } from 'react'
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+  
 
 function Activity() {
     const [pastActivity,setPastActivity] = useState([])
@@ -28,25 +51,25 @@ function Activity() {
    <Table sx={{ minWidth: 650 }} aria-label="simple table">
    <TableHead>
           <TableRow>
-            <TableCell>Company</TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Comment</TableCell>
-            <TableCell align="right">Commented At</TableCell>
+            <StyledTableCell>Company</StyledTableCell>
+            <StyledTableCell align="right">ID</StyledTableCell>
+            <StyledTableCell align="right">Comment</StyledTableCell>
+            <StyledTableCell align="right">Commented At</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {pastActivity.map((row) => (
-            <TableRow
+            <StyledTableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <StyledTableCell component="th" scope="row">
                 {row.company_name}
-              </TableCell>
-              <TableCell align="right">{row.company_id}</TableCell>
-              <TableCell align="right">{row.comment}</TableCell>
-              <TableCell align="right">{row.commented_at}</TableCell>
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.company_id}</StyledTableCell>
+              <StyledTableCell align="right">{row.comment}</StyledTableCell>
+              <StyledTableCell align="right">{row.commented_at}</StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
