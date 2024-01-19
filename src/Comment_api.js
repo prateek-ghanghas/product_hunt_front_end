@@ -2,6 +2,7 @@ import { Box, CssBaseline, Typography,Grid,TextField,Stack,Button ,MenuItem, Too
 import React, { useEffect, useState } from 'react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PastActivity from './PastActivity';
+import CloudDoneIcon from '@mui/icons-material/CloudDone';
 
 const days = [
     { 
@@ -60,6 +61,7 @@ function Comment_api() {
     const [sessionValidity,setSessionValidity] = useState(false)
     const [checkbox,setCheckbox] = useState(false)
     const [checked, setChecked] = useState(false);
+    const [editResponse,setEditResponse] = useState(false)
     useEffect(() => {
       if (localStorage.getItem("session") && localStorage.getItem("PHusername")){
       const userSession = localStorage.getItem("session")
@@ -211,11 +213,26 @@ function Comment_api() {
         
           })
       }
+
+      const handleCloseEditApi = (reason) => {
+        if (reason == 'clickaway'){
+          return
+        }
+        else{
+    
+        setEditResponse(false)
+        }
+      } 
       
 
   return (
     <>
-    
+    <Snackbar open={editResponse}  autoHideDuration={5000} onClose={handleCloseEditApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
+    <Alert severity='success' onClose={handleCloseEditApi} sx={{width : '500px'}}>
+    <AlertTitle>Success</AlertTitle>
+  Your comment is successfully edited for daily scheduling — <strong><CloudDoneIcon></CloudDoneIcon></strong>
+    </Alert>
+   </Snackbar>
     <Snackbar open={commentApiResponse}  autoHideDuration={5000} onClose={handleCloseCommentApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseCommentApi} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
