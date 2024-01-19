@@ -256,13 +256,13 @@ function Comment_api() {
     <Snackbar open={dailySchedulingResponseOn}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOn} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseDailySchedulingOn} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
-  Daily Scheduling Is On — <CloudDoneIcon></CloudDoneIcon>
+  Daily Scheduling Is On.
     </Alert>
    </Snackbar>
     <Snackbar open={dailySchedulingResponseOff}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOff} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseDailySchedulingOff} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
-  Daily Scheduling Is Off — <CloudDoneIcon></CloudDoneIcon>
+  Daily Scheduling Is Off.
     </Alert>
    </Snackbar>
     <Snackbar open={editResponse}  autoHideDuration={5000} onClose={handleCloseEditApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
