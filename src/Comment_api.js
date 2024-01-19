@@ -294,7 +294,7 @@ function Comment_api() {
         </TextField>
     </Stack> 
     </Grid>
-    {checked ? <Box alignSelf={'flex-start'} pl={3.5} mt={-2}><Button onClick = {handleEditComment} variant='contained'>Edit Comment</Button></Box>:null}
+    {checked ? <Box alignSelf={'flex-start'} pl={3.5} mt={-2}><Button onClick = {handleEditComment} sx={{color : 'white', backgroundColor : '#9932CC', ':hover':{backgroundColor : ' #9400D3'}}} variant='contained'>Edit Comment</Button></Box>:null}
     { checkbox ?
     <Box alignSelf={'flex-start'} pl={3.5}><FormControlLabel control={<Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} color='success'/>} label='Daily Scheduling'></FormControlLabel></Box> : null}
     <Grid item mt={2}>
