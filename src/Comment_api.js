@@ -62,6 +62,8 @@ function Comment_api() {
     const [checkbox,setCheckbox] = useState(false)
     const [checked, setChecked] = useState(false);
     const [editResponse,setEditResponse] = useState(false)
+    const [dailySchedulingResponseOn,setDailySchedulingResponseOn] = useState(false)
+    const [dailySchedulingResponseOff,setDailySchedulingResponseOff] = useState(false)
     useEffect(() => {
       if (localStorage.getItem("session") && localStorage.getItem("PHusername")){
       const userSession = localStorage.getItem("session")
@@ -164,7 +166,9 @@ function Comment_api() {
         fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
         .then((response) => response.json())
         .then((response) => {
-      
+           if (response.result == 'scheduling is on'){
+               setDailySchedulingResponseOn(true)
+           }
         })}
         else{
           const userSession = localStorage.getItem("session")
@@ -185,7 +189,9 @@ function Comment_api() {
              fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
              .then((response) => response.json())
              .then((response) => {
-           
+               if(response.result == 'daily scheduling is off'){
+                setDailySchedulingResponseOff(true)
+               }
              })
         }
         setChecked(!checked)
@@ -210,7 +216,9 @@ function Comment_api() {
           fetch('https://u0nsya3ysc.execute-api.eu-north-1.amazonaws.com/editComment',userinfo)
           .then((response) => response.json())
           .then((response) => {
-        
+            if (response.result == 'edited'){
+              setEditResponse(true)
+            }
           })
       }
 
@@ -222,11 +230,41 @@ function Comment_api() {
     
         setEditResponse(false)
         }
+      }
+      const handleCloseDailySchedulingOn = (reason) => {
+        if (reason == 'clickaway'){
+          return
+        }
+        else{
+    
+        setDailySchedulingResponseOn(false)
+        }
+      }
+      const handleCloseDailySchedulingOff = (reason) => {
+        if (reason == 'clickaway'){
+          return
+        }
+        else{
+    
+        setDailySchedulingResponseOff(false)
+        }
       } 
       
 
   return (
     <>
+    <Snackbar open={dailySchedulingResponseOn}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOn} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
+    <Alert severity='success' onClose={handleCloseDailySchedulingOn} sx={{width : '500px'}}>
+    <AlertTitle>Success</AlertTitle>
+  Your comment is successfully edited for daily scheduling — <strong><CloudDoneIcon></CloudDoneIcon></strong>
+    </Alert>
+   </Snackbar>
+    <Snackbar open={dailySchedulingResponseOff}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOff} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
+    <Alert severity='success' onClose={handleCloseDailySchedulingOff} sx={{width : '500px'}}>
+    <AlertTitle>Success</AlertTitle>
+  Your comment is successfully edited for daily scheduling — <strong><CloudDoneIcon></CloudDoneIcon></strong>
+    </Alert>
+   </Snackbar>
     <Snackbar open={editResponse}  autoHideDuration={5000} onClose={handleCloseEditApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseEditApi} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
