@@ -1,5 +1,5 @@
-import { Box, CssBaseline, Typography,Grid,TextField,Stack,Button ,MenuItem, Tooltip,Snackbar,AlertTitle,Alert,Dialog,DialogContent,DialogTitle,IconButton} from '@mui/material'
-import React, { useState } from 'react'
+import { Box, CssBaseline, Typography,Grid,TextField,Stack,Button ,MenuItem, Tooltip,Snackbar,AlertTitle,Alert,Dialog,DialogContent,DialogTitle,IconButton, Checkbox, FormControlLabel} from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PastActivity from './PastActivity';
 
@@ -52,16 +52,40 @@ const days = [
   ];
 
 function Comment_api() {
-    const [userdata,setUserdata] = useState({username : '', session : localStorage.getItem("session") ? localStorage.getItem("session") :"Enter your session token" , comment : ''})
-    const [noOfDays,SetNoOfDays] = useState('')
+    const [userdata,setUserdata] = useState({username : localStorage.getItem("PHusername") ? localStorage.getItem("PHusername") :"", session : localStorage.getItem("session") ? localStorage.getItem("session") :"Enter your session token" , comment : ''})
+    const [noOfDays,SetNoOfDays] = useState(localStorage.getItem("noOfDays") ? localStorage.getItem("noOfDays") :"")
     const [commentApiResponse,setCommentApiResponse] = useState(false)
     const [sessionOpen, setsessionOpen] = useState(false)
     const [usernameOpen, setUsernameOpen] = useState(false)
     const [sessionValidity,setSessionValidity] = useState(false)
+    const [checkbox,setCheckbox] = useState(false)
+    const [checked, setChecked] = useState(false);
+    useEffect(() => {
+      if (localStorage.getItem("session") && localStorage.getItem("PHusername")){
+      const userSession = localStorage.getItem("session")
+      
+     const userinfo = {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name : userdata.username,
+          sessionToken : userSession,
+          }),
+        }
+        fetch('https://8gjcfgmeyj.execute-api.eu-north-1.amazonaws.com/checkboxValue',userinfo)
+        .then((response) => response.json())
+        .then((response) => {
+         if (response.result === 'on'){setCheckbox(true);setChecked(true);setUserdata({...userdata,comment : response.comment})}
+        })
+    }},[])
     
     const schedule_comments = () => {
       localStorage.setItem("session",userdata.session)
       localStorage.setItem("PHusername",userdata.username)
+      localStorage.setItem("noOfDays",noOfDays)
       
         const userSession = localStorage.getItem("session")
       
@@ -76,6 +100,7 @@ function Comment_api() {
           sessionToken : userSession,
           no_of_days : noOfDays,
           comment : userdata.comment,
+          dailyScheduling : checked ? "on" : "off",
           }),
         }
         fetch('https://40djlwps1e.execute-api.eu-north-1.amazonaws.com/commentOnRecentLaunchedProducts',userinfo)
@@ -83,6 +108,7 @@ function Comment_api() {
         .then((response) => {
             if (response.result === 'true'){
                 setCommentApiResponse(true)
+                setCheckbox(true)
             }
             else if(response.result == "access_denied"){
                
@@ -116,6 +142,76 @@ function Comment_api() {
       const close_username_dialog = () => {
         setUsernameOpen(false)
       }
+      const handleChange = (e) => {
+        if(checked === false){
+        const userSession = localStorage.getItem("session")
+      
+     const userinfo = {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name : userdata.username,
+          sessionToken : userSession,
+          dailyScheduling : "on",
+          comment : userdata.comment
+          }),
+        }
+        fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
+        .then((response) => response.json())
+        .then((response) => {
+      
+        })}
+        else{
+          const userSession = localStorage.getItem("session")
+      
+          const userinfo = {
+             method: "post",
+             headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({
+               name : userdata.username,
+               sessionToken : userSession,
+               dailyScheduling : "off",
+               comment : userdata.comment
+               }),
+             }
+             fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
+             .then((response) => response.json())
+             .then((response) => {
+           
+             })
+        }
+        setChecked(!checked)
+      
+      }
+
+      const handleEditComment = () => {
+        const username = localStorage.getItem('PHusername')
+        const session = localStorage.getItem('session')
+        const userinfo = {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name : username,
+            sessionToken : session,
+            comment : userdata.comment
+            }),
+          }
+          fetch('https://u0nsya3ysc.execute-api.eu-north-1.amazonaws.com/editComment',userinfo)
+          .then((response) => response.json())
+          .then((response) => {
+        
+          })
+      }
+      
 
   return (
     <>
@@ -132,7 +228,7 @@ function Comment_api() {
   Seems like something wrong with your session token or it is expired — <strong>Enter it again!</strong>
     </Alert>
    </Snackbar>
-    <Box width='100%' height='380px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
+    <Box width='100%' height='450px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
     
     <Grid spacing={2} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
       <Grid item >
@@ -179,7 +275,7 @@ function Comment_api() {
     </Grid>
     <Grid item>
      <Stack direction={'row'} spacing={4}>  
-    <Tooltip title = {<Typography>If you left this input empty, the default comment will be considered</Typography>}>  <TextField sx={{width : '420px'}} id="standard-basic" label="Deafult : Congrats team {Product Name} on your launch." variant="standard" onChange={(e) => {setUserdata({...userdata,comment : e.target.value})}}></TextField></Tooltip>
+    <Tooltip title = {<Typography>If you left this input empty, the default comment will be considered</Typography>}>  <TextField sx={{width : '420px'}} id="standard-basic" label="Deafult : Congrats team {Product Name} on your launch." variant="standard" value = {userdata.comment} onChange={(e) => {setUserdata({...userdata,comment : e.target.value})}}></TextField></Tooltip>
     <TextField
           id="outlined-select-currency"
           select
@@ -198,8 +294,11 @@ function Comment_api() {
         </TextField>
     </Stack> 
     </Grid>
+    {checked ? <Box alignSelf={'flex-start'} pl={3.5} mt={-2}><Button onClick = {handleEditComment} variant='contained'>Edit Comment</Button></Box>:null}
+    { checkbox ?
+    <Box alignSelf={'flex-start'} pl={3.5}><FormControlLabel control={<Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} color='success'/>} label='Daily Scheduling'></FormControlLabel></Box> : null}
     <Grid item mt={2}>
-    <Stack direction={'row'} height={40} spacing={3}>
+    <Stack direction={'row'} height={40} spacing={3} mt={-2}>
       
       
         <Button onClick = {schedule_comments} variant = 'contained'  sx={{color : 'white', backgroundColor : '#333333', ':hover':{backgroundColor : '#8E969D'}, marginTop : '-20px'}}>Schedule Comments</Button>

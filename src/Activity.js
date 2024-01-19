@@ -48,7 +48,7 @@ function Activity() {
    <>
    { localStorage.getItem("PHusername") ? 
    <TableContainer component={Paper}>
-   <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 650 }}>
+   <Table sx={{ minWidth: 650 }} aria-label="simple table">
    <TableHead>
           <TableRow>
             <StyledTableCell>Company</StyledTableCell>
