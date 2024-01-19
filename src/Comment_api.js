@@ -189,7 +189,7 @@ function Comment_api() {
              fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
              .then((response) => response.json())
              .then((response) => {
-               if(response.result == 'daily scheduling is off'){
+               if(response.result == 'scheduling is off'){
                 setDailySchedulingResponseOff(true)
                }
              })
@@ -256,13 +256,13 @@ function Comment_api() {
     <Snackbar open={dailySchedulingResponseOn}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOn} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseDailySchedulingOn} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
-  Your comment is successfully edited for daily scheduling — <strong><CloudDoneIcon></CloudDoneIcon></strong>
+  Daily Scheduling Is On — <strong><CloudDoneIcon></CloudDoneIcon></strong>
     </Alert>
    </Snackbar>
     <Snackbar open={dailySchedulingResponseOff}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOff} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseDailySchedulingOff} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>
-  Your comment is successfully edited for daily scheduling — <strong><CloudDoneIcon></CloudDoneIcon></strong>
+  Daily Scheduling Is Off — <strong><CloudDoneIcon></CloudDoneIcon></strong>
     </Alert>
    </Snackbar>
     <Snackbar open={editResponse}  autoHideDuration={5000} onClose={handleCloseEditApi} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
