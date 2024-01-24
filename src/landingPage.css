@@ -1,0 +1,11 @@
+.wrapper{
+    background: linear-gradient(rgba(10, 10, 10, .8), rgba(10 ,10, 10, .7)), url('old-grunge-black-textures.jpg');
+    height: 100vh;
+	background-position: center;
+	background-size: cover; 
+}
+
+
+
+
+
