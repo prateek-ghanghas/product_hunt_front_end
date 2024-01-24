@@ -32,7 +32,7 @@ function Loginpage() {
       <p>
 
       Optimize your product hunt journey with our simple web app! 
-Increase your followers and engagement by Automate commenting on top newly launched products,by removing non-followback users. Maximize your network and maintain a relevant follower base  
+Increase your followers and engagement by Automate commenting on top newly launched products, by removing non-followback users. Maximize your network and maintain a relevant follower base  
       </p>
       </Typography>
     </Stack>
