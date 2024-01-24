@@ -27,23 +27,21 @@ function Loginpage() {
       Let's Grow Together On Product Hunt!
     </Stack>
     </Box>
-    <Stack sx={{pl:'430px',textAlign:'center', color:'wheat',fontSize:'20px',display:'flex',flexDirection:'row', justifyContent:'center',alignItems:'center',width:'700px',alignSelf:'center',justifyItems:'center',justifySelf:'center',textTransform:'capitalize'}}>
-      <Typography sx={{fontSize:'h6.fontSize',fontFamily:'helvectica'}}>
-      <p>
-
+    <Box sx={{display:'flex',flexDirection:'row', justifyContent:'center',alignItems:'center',width:'100%',textTransform:'capitalize',textAlign:'center',pt:'12px'}}>
+    
+    <Stack sx={{width:'46%'}}>
+  <Typography sx={{fontFamily:'helvectica',fontSize:'h6.fontSize',color:'wheat'}}>
       Optimize your product hunt journey with our simple web app! 
 Increase your followers and engagement by Automate commenting on top newly launched products, by removing non-followback users. Maximize your network and maintain a relevant follower base  
-      </p>
-      </Typography>
-    </Stack>
-    <Box>
-
+</Typography>     
+</Stack>
     </Box>
+
       
 
     
     
-    <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',alignContent:'center',mt:'20px'}}>
+    <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',alignContent:'center',mt:'25px'}}>
       <Box sx={{color:'#E9DBC6'}}><Typography sx={{fontFamily:'helvectica',fontSize:'30px'}}><b>Start using the app straight away &nbsp;</b></Typography></Box>
         <Button sx={{padding: '7px 14px',
     fontSize: '1.2rem',
