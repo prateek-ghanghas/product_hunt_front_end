@@ -363,6 +363,7 @@ function Comment_api() {
     </Stack> 
     </Grid>
     {checked ? <Box alignSelf={'flex-start'} pl={3.5} mt={-2}><Button onClick = {handleEditComment} sx={{color : 'white', backgroundColor : '#9932CC', ':hover':{backgroundColor : ' #9400D3'}}} variant='contained'>Edit Comment</Button></Box>:null}
+    <Box alignSelf={'flex-start'} pl={3.5}><Typography>Select time for daily schedule</Typography></Box>
     <Box alignSelf={'flex-start'} pl={3.5}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DigitalClock']}>
