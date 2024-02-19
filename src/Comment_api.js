@@ -296,7 +296,7 @@ function Comment_api() {
   Seems like something wrong with your session token or it is expired — <strong>Enter it again!</strong>
     </Alert>
    </Snackbar>
-    <Box width='100%' height='450px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
+    <Box width='100%' height='500px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
     
     <Grid spacing={2} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
       <Grid item >
@@ -366,7 +366,7 @@ function Comment_api() {
     <Box alignSelf={'flex-start'} pl={3.5}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DigitalClock']}>
-    <DemoItem>
+    <DemoItem label = 'Select time for daily schedule'>
           <DigitalClock sx={{height: '40px'}}
            value={value}
            onChange={(newValue) => setValue(newValue)}

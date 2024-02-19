@@ -44,6 +44,7 @@ Increase your followers and engagement by Automate commenting on top newly launc
     textTransform: 'uppercase',
     border: '1px solid rgb(249, 168, 168)',
     borderRadius: '4px',
+    ml:'50px',
     cursor: 'pointer' ,':hover':{background:'white',
       color: 'black'
 
