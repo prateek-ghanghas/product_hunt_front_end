@@ -3,6 +3,13 @@ import React, { useEffect, useState } from 'react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PastActivity from './PastActivity';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { DigitalClock } from '@mui/x-date-pickers/DigitalClock';
+
 
 const days = [
     { 
@@ -64,6 +71,10 @@ function Comment_api() {
     const [editResponse,setEditResponse] = useState(false)
     const [dailySchedulingResponseOn,setDailySchedulingResponseOn] = useState(false)
     const [dailySchedulingResponseOff,setDailySchedulingResponseOff] = useState(false)
+    const [value, setValue] = React.useState(dayjs());
+    console.log(value.format())
+
+
     useEffect(() => {
       if (localStorage.getItem("session") && localStorage.getItem("PHusername")){
       const userSession = localStorage.getItem("session")
@@ -160,6 +171,7 @@ function Comment_api() {
           name : userdata.username,
           sessionToken : userSession,
           dailyScheduling : "on",
+          timeOfDailySchedule : value.format(),
           comment : userdata.comment
           }),
         }
@@ -183,6 +195,7 @@ function Comment_api() {
                name : userdata.username,
                sessionToken : userSession,
                dailyScheduling : "off",
+               timeOfDailySchedule : value.format(),
                comment : userdata.comment
                }),
              }
@@ -350,8 +363,20 @@ function Comment_api() {
     </Stack> 
     </Grid>
     {checked ? <Box alignSelf={'flex-start'} pl={3.5} mt={-2}><Button onClick = {handleEditComment} sx={{color : 'white', backgroundColor : '#9932CC', ':hover':{backgroundColor : ' #9400D3'}}} variant='contained'>Edit Comment</Button></Box>:null}
-    { checkbox ?
-    <Box alignSelf={'flex-start'} pl={3.5}><FormControlLabel control={<Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} color='success'/>} label='Daily Scheduling'></FormControlLabel></Box> : null}
+    <Box alignSelf={'flex-start'} pl={3.5}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <DemoContainer components={['DigitalClock']}>
+    <DemoItem>
+          <DigitalClock sx={{height: '40px'}}
+           value={value}
+           onChange={(newValue) => setValue(newValue)}
+          />
+        </DemoItem>
+    </DemoContainer>
+    </LocalizationProvider>
+    </Box>
+    <Box alignSelf={'flex-start'} pl={3.5}><FormControlLabel control={<Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} color='success'/>} label='Daily Scheduling'></FormControlLabel></Box>
+  
     <Grid item mt={2}>
     <Stack direction={'row'} height={40} spacing={3} mt={-2}>
       

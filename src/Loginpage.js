@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Button ,Box, Typography,Stack} from '@mui/material'
+import { Button ,Box, Typography,Stack, Card, Grid} from '@mui/material'
 import React, { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import './landingPage.css'
@@ -22,12 +22,11 @@ function Loginpage() {
   return (
     <>
     <div className='wrapper'>
-      <Box sx={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center',pt:'150px',width:'100%'}}>
-    <Stack sx={{color:'white',fontSize:'50px'}}>
+      <Box sx={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',pt:'150px',width:'100%'}}>
+    <Box sx={{color:'white',fontSize:'50px',display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'flex-start',width:'40%',pl:'20px'}}>
       Let's Grow Together On Product Hunt!
-    </Stack>
     </Box>
-    <Box sx={{display:'flex',flexDirection:'row', justifyContent:'center',alignItems:'center',width:'100%',textTransform:'capitalize',textAlign:'center',pt:'12px'}}>
+    <Box sx={{display:'flex',flexDirection:'row', justifyContent:'flex-start',alignItems:'center',width:'100%',textTransform:'capitalize',textAlign:'center',pt:'12px'}}>
     
     <Stack sx={{width:'46%'}}>
   <Typography sx={{fontFamily:'helvectica',fontSize:'h6.fontSize',color:'wheat'}}>
@@ -37,13 +36,8 @@ Increase your followers and engagement by Automate commenting on top newly launc
 </Stack>
     </Box>
 
-      
-
-    
-    
-    <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',alignContent:'center',mt:'25px'}}>
-      <Box sx={{color:'#E9DBC6'}}><Typography sx={{fontFamily:'helvectica',fontSize:'30px'}}><b>Start using the app straight away &nbsp;</b></Typography></Box>
-        <Button sx={{padding: '7px 14px',
+    </Box>
+    <Button sx={{padding: '7px 14px',
     fontSize: '1.2rem',
     color: '#fff',
     fontWeight: '600',
@@ -54,9 +48,8 @@ Increase your followers and engagement by Automate commenting on top newly launc
       color: 'black'
 
       }}} endIcon={<EastIcon/>} onClick={handleclick} className='login-button'>Log in</Button>
-    </Box>
+
     </div>
-  
   
     </>
   )
