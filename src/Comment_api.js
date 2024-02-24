@@ -192,6 +192,7 @@ function Comment_api() {
         })}
         else{
           const userSession = localStorage.getItem("session")
+          const time = value.format('HH:mm')
       
           const userinfo = {
              method: "post",
@@ -203,7 +204,7 @@ function Comment_api() {
                name : userdata.username,
                sessionToken : userSession,
                dailyScheduling : "off",
-               timeOfDailySchedule : value.format(),
+               timeOfDailySchedule : time,
                comment : userdata.comment
                }),
              }
@@ -211,8 +212,9 @@ function Comment_api() {
              .then((response) => response.json())
              .then((response) => {
                if(response.result == 'scheduling is off'){
-                setDailySchedulingResponseOff(true)
-                setSchedulingTime('None')
+                setDailySchedulingResponseOff(true);
+                setSchedulingTime('None');
+                setValue(dayjs())
                }
              })
         }
