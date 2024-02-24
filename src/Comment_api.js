@@ -186,7 +186,8 @@ function Comment_api() {
         .then((response) => response.json())
         .then((response) => {
            if (response.result == 'scheduling is on'){
-               setDailySchedulingResponseOn(true)
+               setDailySchedulingResponseOn(true);
+               setSchedulingTime(response.scheduleTime)
            }
         })}
         else{
@@ -211,6 +212,7 @@ function Comment_api() {
              .then((response) => {
                if(response.result == 'scheduling is off'){
                 setDailySchedulingResponseOff(true)
+                setSchedulingTime('None')
                }
              })
         }
@@ -370,7 +372,7 @@ function Comment_api() {
     </Stack> 
     </Grid>
     {checked ? <Box alignSelf={'flex-start'} pl={3.5} mt={-2}><Button onClick = {handleEditComment} sx={{color : 'white', backgroundColor : '#9932CC', ':hover':{backgroundColor : ' #9400D3'}}} variant='contained'>Edit Comment</Button></Box>:null}
-    <Box alignSelf={'flex-start'} pl={3.5}><Typography>Select time (in PST) for daily schedule</Typography></Box>
+    <Box alignSelf={'flex-start'} pl={3.5} pt={2}><Typography>Select time (in PST) for daily schedule</Typography></Box>
     <Box alignSelf={'flex-start'} pl={3.5}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DigitalClock']}>
