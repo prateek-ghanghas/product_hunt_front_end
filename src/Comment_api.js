@@ -4,11 +4,15 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PastActivity from './PastActivity';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { DigitalClock } from '@mui/x-date-pickers/DigitalClock';
+import { useValueWithTimezone } from '@mui/x-date-pickers/internals/hooks/useValueWithTimezone';
+
 
 
 const days = [
@@ -72,7 +76,10 @@ function Comment_api() {
     const [dailySchedulingResponseOn,setDailySchedulingResponseOn] = useState(false)
     const [dailySchedulingResponseOff,setDailySchedulingResponseOff] = useState(false)
     const [value, setValue] = React.useState(dayjs());
+    const [schedulingTime,setSchedulingTime] = useState('None')
     console.log(value.format())
+    dayjs.extend(utc)
+    dayjs.extend(timezone)
 
 
     useEffect(() => {
@@ -93,7 +100,7 @@ function Comment_api() {
         fetch('https://8gjcfgmeyj.execute-api.eu-north-1.amazonaws.com/checkboxValue',userinfo)
         .then((response) => response.json())
         .then((response) => {
-         if (response.result === 'on'){setCheckbox(true);setChecked(true);setUserdata({...userdata,comment : response.comment})}
+         if (response.result === 'on'){setCheckbox(true);setChecked(true);setUserdata({...userdata,comment : response.comment});setSchedulingTime(response.time)}
         })
     }},[])
     
@@ -160,7 +167,7 @@ function Comment_api() {
       const handleChange = (e) => {
         if(checked === false){
         const userSession = localStorage.getItem("session")
-      
+      const time = value.format('HH:mm')
      const userinfo = {
         method: "post",
         headers: {
@@ -171,11 +178,11 @@ function Comment_api() {
           name : userdata.username,
           sessionToken : userSession,
           dailyScheduling : "on",
-          timeOfDailySchedule : value.format(),
+          timeOfDailySchedule : time,
           comment : userdata.comment
           }),
         }
-        fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
+        fetch('https://gw4hpx3jid.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
         .then((response) => response.json())
         .then((response) => {
            if (response.result == 'scheduling is on'){
@@ -199,7 +206,7 @@ function Comment_api() {
                comment : userdata.comment
                }),
              }
-             fetch('https://6fyheyvr18.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
+             fetch('https://gw4hpx3jid.execute-api.eu-north-1.amazonaws.com/scheduleValueWrite',userinfo)
              .then((response) => response.json())
              .then((response) => {
                if(response.result == 'scheduling is off'){
@@ -296,7 +303,7 @@ function Comment_api() {
   Seems like something wrong with your session token or it is expired — <strong>Enter it again!</strong>
     </Alert>
    </Snackbar>
-    <Box width='100%' height='500px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
+    <Box width='100%' height='600px' sx={{display : 'flex', justifyContent: 'center',alignItems:'center'}}>
     
     <Grid spacing={2} direction={'column'} container bgcolor='#bebeb6' sx={{height : 'auto', width: '650px' ,borderRadius : '10px', alignItems : 'center',paddingBottom : '30px'}}>
       <Grid item >
@@ -367,7 +374,7 @@ function Comment_api() {
     <Box alignSelf={'flex-start'} pl={3.5}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DigitalClock']}>
-    <DemoItem label = 'Select time for daily schedule'>
+    <DemoItem>
           <DigitalClock sx={{height: '40px'}}
            value={value}
            onChange={(newValue) => setValue(newValue)}
@@ -377,7 +384,7 @@ function Comment_api() {
     </LocalizationProvider>
     </Box>
     <Box alignSelf={'flex-start'} pl={3.5}><FormControlLabel control={<Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} color='success'/>} label='Daily Scheduling'></FormControlLabel></Box>
-  
+    <Box alignSelf={'flex-start'} pl={3.5}>Current scheduling time is : {schedulingTime} </Box>
     <Grid item mt={2}>
     <Stack direction={'row'} height={40} spacing={3} mt={-2}>
       
