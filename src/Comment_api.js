@@ -12,7 +12,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { DigitalClock } from '@mui/x-date-pickers/DigitalClock';
 import { useValueWithTimezone } from '@mui/x-date-pickers/internals/hooks/useValueWithTimezone';
-
+import DialogActions from '@mui/material/DialogActions';
+import DialogContentText from '@mui/material/DialogContentText';
+import Slide from '@mui/material/Slide';
+import { useAuth0 } from "@auth0/auth0-react";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 const days = [
@@ -77,11 +83,12 @@ function Comment_api() {
     const [dailySchedulingResponseOff,setDailySchedulingResponseOff] = useState(false)
     const [value, setValue] = React.useState(dayjs());
     const [schedulingTime,setSchedulingTime] = useState('None')
+    const [open, setOpen] = React.useState(false);
     console.log(value.format())
     dayjs.extend(utc)
     dayjs.extend(timezone)
 
-
+    const {loginWithRedirect,user,isAuthenticated,loginWithPopup,logout} = useAuth0()
     useEffect(() => {
       if (localStorage.getItem("session") && localStorage.getItem("PHusername")){
       const userSession = localStorage.getItem("session")
@@ -105,7 +112,26 @@ function Comment_api() {
     }},[])
     
     const schedule_comments = () => {
-      localStorage.setItem("session",userdata.session)
+      const userDataPaidCheck = {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          gmail : user.email
+          }),
+      }
+      fetch('https://lfr9kqe1qa.execute-api.eu-north-1.amazonaws.com/paidCheck',userDataPaidCheck)
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.result == 'false'){
+          setOpen(true)
+        }
+      
+      else if(response.result == 'true')
+        
+     { localStorage.setItem("session",userdata.session)
       localStorage.setItem("PHusername",userdata.username)
       localStorage.setItem("noOfDays",noOfDays)
       
@@ -138,7 +164,9 @@ function Comment_api() {
                setSessionValidity(true)
             }
         })
-    }
+
+      }})}
+      
 
     const handleCloseCommentApi = (reason) => {
         if (reason == 'clickaway'){
@@ -273,10 +301,32 @@ function Comment_api() {
         setDailySchedulingResponseOff(false)
         }
       } 
+
+      const handleClosePaidCheck = () => {
+        setOpen(false);
+      };
+    
       
 
   return (
     <>
+    <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClosePaidCheck}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Please Pay Before Use"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            You have to pay before using Auto-Comment functionality.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePaidCheck}>OK</Button>
+        </DialogActions>
+      </Dialog>
     <Snackbar open={dailySchedulingResponseOn}  autoHideDuration={5000} onClose={handleCloseDailySchedulingOn} anchorOrigin={{ vertical : 'top', horizontal : 'center' }}>
     <Alert severity='success' onClose={handleCloseDailySchedulingOn} sx={{width : '500px'}}>
     <AlertTitle>Success</AlertTitle>

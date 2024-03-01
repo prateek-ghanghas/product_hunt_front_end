@@ -38,7 +38,7 @@ function Homepage() {
        }) 
   } 
       console.log(user.email)
-    fetch('https://6ljg9361sl.execute-api.eu-north-1.amazonaws.com/v1/userData',object)}
+    fetch('https://r8echjrwjf.execute-api.eu-north-1.amazonaws.com/userData',object)}
   
     },[isAuthenticated]
   
